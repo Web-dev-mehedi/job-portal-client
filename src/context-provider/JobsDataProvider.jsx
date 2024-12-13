@@ -4,13 +4,13 @@ import React, { createContext, useEffect, useState } from "react";
 //
 export const JobsContext = createContext(null);
 const JobsDataProvider = ({ children }) => {
-  const [JobData, setJobData] = useState([]);
+  const [JobsData, setJobsData] = useState([]);
   //
   const { data } = useQuery({
     queryKey: ["all-Job"],
     queryFn: async () => {
       //
-      const res = await fetch("http://localhost:5000/all-Job");
+      const res = await fetch("http://localhost:5000/jobs");
       return res.json();
     },
   });
@@ -18,14 +18,14 @@ const JobsDataProvider = ({ children }) => {
 
   //
   useEffect(() => {
-    setJobData(data);
+    setJobsData(data);
   }, [data]);
 
   // transporter
   const JobsInfo = {
     name: "ridoy",
-    JobData,
-    setJobData,
+    JobsData,
+    setJobsData,
   };
 
   return (

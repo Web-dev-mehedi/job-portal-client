@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import UseAuth from "../../components/authHooks/UseAuth";
+import UseAuth from "../../components/Hooks/UseAuth";
 
 const SignInForm = () => {
    // 

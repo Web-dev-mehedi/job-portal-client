@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
-import UseAuth from './authHooks/UseAuth';
+import UseAuth from './Hooks/UseAuth';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-init';
 
@@ -58,27 +58,19 @@ return(
                 className="block px-4 py-2 md:p-0 hover:text-green-500"
                 onClick={() => setMenuOpen(false)}
               >
-                Find Jobs
+                All Jobs
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/employers"
+                to="/application/me"
                 className="block px-4 py-2 md:p-0 hover:text-green-500"
                 onClick={() => setMenuOpen(false)}
               >
-                Employers Details
+                My Applications
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/candidates"
-                className="block px-4 py-2 md:p-0 hover:text-green-500"
-                onClick={() => setMenuOpen(false)}
-              >
-                Candidates
-              </NavLink>
-            </li>
+          
             <li>
               <NavLink
                 to="/blog"
