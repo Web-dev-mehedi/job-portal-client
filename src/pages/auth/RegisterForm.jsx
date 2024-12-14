@@ -1,23 +1,31 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UseAuth from "../../components/Hooks/UseAuth";
+import axios from "axios";
 
 const RegisterForm = () => {
   const [userType, setUserType] = useState("Candidate");
   // 
   const { registerUserByEmailPass} = UseAuth();
+  // 
+  const navigate = useNavigate();
 // 
 const handleRegister =(e)=>{
   e.preventDefault();
   const userEmail = e.target.userEmail.value;
   const userPass = e.target.userPass.value;
-  const userInfo = {userEmail,userPass}
-  console.log(userInfo)
+  const userInfo = {userEmail,userPass,userRole:userType,userPhoto:"",userName:""}
+  console.log(userInfo);
   // 
   registerUserByEmailPass(userInfo)
   .then(result =>{
     console.log(result)
-    alert("account-okkkk")
+    alert("account-okkkk");
+// post in database
+axios.post("http://localhost:5000/users", userInfo)
+.then(data=>console.log(data.data))
+.catch(err=>console.log(err.message));
+    navigate("/application/me")
   }).catch(err=>{
      console.log(err)
   })

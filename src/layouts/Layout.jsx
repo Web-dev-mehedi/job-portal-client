@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+
 import { Outlet } from 'react-router-dom';
-import { JobsContext } from '../context-provider/JobsDataProvider';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const Layout = () => {
-    const { name} = useContext(JobsContext);
-    console.log(name)
+
     return (
         <div className='container mx-auto'>
              <Header/>

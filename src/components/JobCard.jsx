@@ -46,7 +46,7 @@ const JobCard = ({ job , JobData}) => {
             className="inline-flex items-center text-white bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600"
           >
             <FaExternalLinkAlt className="mr-2" />
-            Apply Now
+             View Details
           </Link>
         </div>
       </div>

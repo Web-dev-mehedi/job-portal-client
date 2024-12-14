@@ -2,6 +2,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { auth } from '../firebase-init';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { useQuery } from '@tanstack/react-query';
 
 
 
@@ -12,8 +13,8 @@ const AuthProvider = ({children}) => {
 // 
 const [user, setUser] = useState(null);
 const [loader,setLoader] =useState(true);
+const [userFromDb , setUserFromDb] = useState([]);
 console.log(user)
-
 
 //register user by email pass
 const registerUserByEmailPass = (userInfo)=>{
@@ -26,24 +27,33 @@ const loginUserByEmailPass = (userInfo)=>{
 }
 
 
-
-// 
-
+ //
+ const { data } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      //
+      const res = await fetch("http://localhost:5000/users");
+      return res.json();
+    },
+  });
+//   
 useEffect(()=>{
+    setUserFromDb(data)
+    // 
       const unsubscribe = onAuthStateChanged(auth, (currentUser) =>{
            if(currentUser){
               setUser(currentUser);
               setLoader(false)
            }else{
             setUser('');
-            setLoader(true)
+            setLoader(false)
            }
       })
 
       return () =>{
         unsubscribe();
       }
-},[])
+},[data,user])
 
 
 
@@ -54,7 +64,8 @@ const authInfo = {
     setUser,
     user,
     loader,
-    setLoader
+    setLoader,
+    userFromDb
 
     
 }

@@ -1,26 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UseAuth from "../../components/Hooks/UseAuth";
 
 const SignInForm = () => {
-   // 
-   const { loginUserByEmailPass} = UseAuth();
-  // 
-const handleLogin =(e)=>{
-  e.preventDefault();
-  const userEmail = e.target.userEmail.value;
-  const userPass = e.target.userPass.value;
-  const userInfo = {userEmail,userPass}
-  console.log(userInfo)
-  // 
-  loginUserByEmailPass(userInfo)
-  .then(result =>{
-    console.log(result)
-    alert("account-login")
-  }).catch(err=>{
-     console.log(err)
-  })
-}
+  //
+  const { loginUserByEmailPass } = UseAuth();
+  //
+  const navigate = useNavigate();
+  //
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const userEmail = e.target.userEmail.value;
+    const userPass = e.target.userPass.value;
+    const userInfo = { userEmail, userPass };
+    console.log(userInfo);
+    //
+    loginUserByEmailPass(userInfo)
+      .then((result) => {
+        console.log(result);
+        alert("account-login");
+        navigate("/application/me");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
@@ -79,9 +83,12 @@ const handleLogin =(e)=>{
           </button>
           <p className="mt-6 text-sm text-center text-gray-600">
             Don’t you have an account?{" "}
-           <Link to={"/register"} className="text-green-500 hover:underline focus:outline-none">
-           Register
-           </Link>
+            <Link
+              to={"/register"}
+              className="text-green-500 hover:underline focus:outline-none"
+            >
+              Register
+            </Link>
           </p>
         </form>
       </div>

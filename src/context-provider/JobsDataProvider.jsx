@@ -23,7 +23,6 @@ const JobsDataProvider = ({ children }) => {
 
   // transporter
   const JobsInfo = {
-    name: "ridoy",
     JobsData,
     setJobsData,
   };
