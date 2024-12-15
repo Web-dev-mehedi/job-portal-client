@@ -5,6 +5,9 @@ import React, { createContext, useEffect, useState } from "react";
 export const JobsContext = createContext(null);
 const JobsDataProvider = ({ children }) => {
   const [JobsData, setJobsData] = useState([]);
+  // 
+  const [jobAddedData,setJobAddedData]= useState([]);
+  const [refresh , setRefresh] = useState(false)
   //
   const { data } = useQuery({
     queryKey: ["all-Job"],
@@ -14,10 +17,10 @@ const JobsDataProvider = ({ children }) => {
       return res.json();
     },
   });
-
-
   //
   useEffect(() => {
+  
+  // 
     setJobsData(data);
   }, [data]);
 
@@ -25,6 +28,8 @@ const JobsDataProvider = ({ children }) => {
   const JobsInfo = {
     JobsData,
     setJobsData,
+    jobAddedData,
+    setJobAddedData
   };
 
   return (

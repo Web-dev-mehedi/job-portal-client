@@ -1,25 +1,27 @@
 import React from 'react';
 import { FaDollarSign, FaMapMarkerAlt, FaBriefcase, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { PiCurrencyInr } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 
 const JobCard = ({ job , JobData}) => {
-  const {_id,company, location , position , job_type , skills , salary}  = job || JobData || {}
+  const {_id,companyName,companyImage,jobName, location  , jobType , skills , salaryRange}  = job || JobData || {}
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-md">
       <div className="p-4">
         {/* Company Logo and Name */}
         <div className="flex items-center mb-4">
-          <img src="https://via.placeholder.com/40" alt="company logo" className="w-12 h-12 rounded-full" />
+          <img src={companyImage || "https://via.placeholder.com/40"} alt="company logo" className="w-12 h-12 rounded-full" />
           <div className="ml-3">
-            <h3 className="text-lg font-semibold">{company}</h3>
+            <h3 className="text-lg font-semibold">{companyName}</h3>
             <p className="text-sm text-gray-500">{location}</p>
           </div>
         </div>
 
         {/* Job Details */}
         <div className="mb-4">
-          <h4 className="text-xl font-semibold">{position}</h4>
-          <p className="text-sm text-gray-500">Job Type: {job_type}</p>
+          <h4 className="text-xl font-semibold">{jobName}</h4>
+          <p className="text-sm text-gray-500">Job Type: {jobType}</p>
         </div>
 
         {/* Skills */}
@@ -38,8 +40,10 @@ const JobCard = ({ job , JobData}) => {
         {/* Salary and Apply Button */}
         <div className="flex justify-between items-center flex-wrap gap-6 ">
           <div className="flex items-center text-gray-700">
-            <FaDollarSign className="mr-1" />
-            <span>{salary}</span>
+            {salaryRange?.currency=== "USD" &&  <FaDollarSign className="mr-1" />}
+            {salaryRange?.currency=== "BDT" && <FaBangladeshiTakaSign className="mr-1"/>}
+           {salaryRange?.currency=== "INR" && <PiCurrencyInr className="mr-1"/>}
+            <span>{salaryRange?.min} - {salaryRange?.max} / Monthly</span>
           </div>
           <Link
             to={`/jobs/details/${_id}`}

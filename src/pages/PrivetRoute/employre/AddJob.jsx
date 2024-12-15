@@ -1,33 +1,59 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import UseAuth from "../../../components/Hooks/UseAuth";
 
 const AddJob = () => {
+  const { user } = UseAuth();
+  // from data
   const [formData, setFormData] = useState({
+    userEmail: user?.email || "",
     jobName: "",
     companyName: "",
     location: "",
     phone: "",
-    salary: "",
-    jobImage: null,
+    salaryRange: {
+      max: "",
+      min: "",
+      currency: "",
+    },
+    companyImage: null,
     description: "",
     jobType: "",
     jobCategory: "",
     experience: "",
     qualification: "",
-    skills:[],
+    skills: [],
     level: "",
     applicationStartDate: "",
     applicationLastDate: "",
-    workingHours: "",
-    benefits: "",
+    workingTimes: [],
+    benefits: [],
     statement: "",
     tags: [],
   });
 
+  //
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name.includes("salaryRange.")) {
+      // For nested fields like salaryRange.min or salaryRange.max
+      const key = name.split(".")[1]; // Extract the field name (e.g., 'min')
+      setFormData((prev) => ({
+        ...prev, // Copy previous state
+        salaryRange: {
+          ...prev.salaryRange, // Copy previous salaryRange object
+          [key]: value, // Update the specific field (min, max, or currency)
+        },
+      }));
+    } else {
+      // For top-level fields like jobName or companyName
+      setFormData((prev) => ({
+        ...prev, // Copy previous state
+        [name]: value, // Update the specific field
+      }));
+    }
   };
   //
   const handleImageChange = (e) => {
@@ -40,15 +66,27 @@ const AddJob = () => {
   const handleSkillsChange = (e) => {
     const value = e.target.value;
     // Split the string into an array of skills and trim spaces around each skill
-    const skillsArray = value.split(",")
-    setFormData((prev) => ({...prev, skills: skillsArray,
-    }));
+    const skillsArray = value.split(",");
+    setFormData((prev) => ({ ...prev, skills: skillsArray }));
+  };
+  //
+  const handleBenefitsChange = (e) => {
+    const value = e.target.value;
+    // Split the string into an array of skills and trim spaces around each skill
+    const benefitsArray = value.split(",");
+    setFormData((prev) => ({ ...prev, benefits: benefitsArray }));
+  };
+  //
+  const handleWorkingTimeChange = (e) => {
+    const value = e.target.value;
+    // Split the string into an array of skills and trim spaces around each skill
+    const workingTimeArray = value.split(",");
+    setFormData((prev) => ({ ...prev, workingTimes: workingTimeArray }));
   };
   //
   const handleTagsChange = (e) => {
     const value = e.target.value;
     const tagsArray = value.split(",");
-    console.log(tagsArray);
     setFormData((prev) => ({
       ...prev,
       tags: tagsArray,
@@ -59,10 +97,8 @@ const AddJob = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Job Details Submitted:", formData);
-
     // Add logic to save data to a database or API
-    axios
-      .post("http://localhost:5000/add-jobs", formData)
+    axios.post("http://localhost:5000/add-jobs", formData)
       .then((data) => {
         console.log(data.data);
         alert("data added");
@@ -142,18 +178,39 @@ const AddJob = () => {
           />
         </div>
         {/* Salary */}
-        <div className="flex flex-col">
+        <div className="w-full mx-auto">
           <label htmlFor="salary" className="text-gray-700 font-medium">
             Salary
           </label>
-          <input
-            type="number"
-            name="salary"
-            placeholder="Enter salary"
-            value={formData.salary}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
+          <div className="flex justify-between items-center gap-5">
+            <input
+              type="number"
+              name="salaryRange.min"
+              placeholder="Min"
+              value={formData?.salaryRange?.min}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+            <input
+              type="number"
+              name="salaryRange.max"
+              placeholder="Max"
+              value={formData?.salaryRange?.max}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+            <select
+              name="salaryRange.currency"
+              value={formData?.salaryRange?.currency}
+              onChange={handleChange}
+              className="w-full text-slate-400 border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="">Currency</option>
+              <option value="BDT">BDT</option>
+              <option value="USD">USD</option>
+              <option value="INR">INR</option>
+            </select>
+          </div>
         </div>
         {/* Job Image */}
         <div className="flex flex-col">
@@ -305,14 +362,13 @@ const AddJob = () => {
         {/* Working Hours */}
         <div className="flex flex-col">
           <label htmlFor="workingHours" className="text-gray-700 font-medium">
-            Working Hours
+            Working Times
           </label>
           <input
             type="text"
             name="workingHours"
-            placeholder="Enter working hours"
-            value={formData.workingHours}
-            onChange={handleChange}
+            placeholder="Enter working Times (comma separated)"
+            onChange={handleWorkingTimeChange}
             className="border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
         </div>
@@ -323,9 +379,8 @@ const AddJob = () => {
           </label>
           <textarea
             name="benefits"
-            placeholder="Enter job benefits"
-            value={formData.benefits}
-            onChange={handleChange}
+            placeholder="Enter job benefits (comma separated)"
+            onChange={handleBenefitsChange}
             className="border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
             rows="3"
           />
