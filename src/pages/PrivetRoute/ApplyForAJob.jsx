@@ -14,6 +14,7 @@ const ApplyForAJob = () => {
         resumeLinks: "",
         job_id:id,
         userEmail:user?.email,
+        isPending:true,
       });
     
       const handleChange = (e) => {
@@ -27,8 +28,8 @@ const ApplyForAJob = () => {
       const handleSubmit = (e) => {
         e.preventDefault();
         //  
-        axios.post('http://localhost:5000/application', formData )
-        .then(data => console.log(data.data))
+        axios.post('https://job-portal-server-zeta.vercel.app/application', formData )
+        .then(data => alert("apply suuccess"))
         .catch(err=>{
             console.log(err.message)
         })

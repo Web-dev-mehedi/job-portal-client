@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex flex-wrap justify-between">
           {/* Company Info */}
           <div className="w-full md:w-1/5 mb-6 md:mb-0">
-            <h2 className="text-white text-lg font-bold mb-4">Finate</h2>
+            <h2 className="text-white text-lg font-bold mb-4">Find Jobs</h2>
             <p className="text-sm">
               That necessitates ecommerce platform that optimizes your store popularised the release.
             </p>
@@ -71,7 +71,7 @@ const Footer = () => {
         </div>
         <div className="mt-10 border-t border-gray-700 pt-6 text-center">
           <p className="text-sm">
-            © 2022 Finate. Made with <span className="text-green-500">❤</span> by <a href="#" className="hover:text-green-500">Codecarnival</a>.
+            © 2025 Find Jobs. Made <span className="text-green-500">❤</span> by <a href="#" className="hover:text-green-500">Mehedi Hasan</a>.
           </p>
         </div>
       </div>

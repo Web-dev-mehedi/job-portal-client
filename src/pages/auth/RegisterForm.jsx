@@ -22,7 +22,7 @@ const handleRegister =(e)=>{
     console.log(result)
     alert("account-okkkk");
 // post in database
-axios.post("http://localhost:5000/users", userInfo)
+axios.post("https://job-portal-server-zeta.vercel.app/users", userInfo)
 .then(data=>console.log(data.data))
 .catch(err=>console.log(err.message));
     navigate("/application/me")

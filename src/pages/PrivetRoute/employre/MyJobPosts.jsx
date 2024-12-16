@@ -23,7 +23,7 @@ const MyJobPosts = () => {
   //
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/my-jobs/${id}`)
+    axios.delete(`https://job-portal-server-zeta.vercel.app/my-jobs/${id}`)
       .then((data) => {
         console.log(data.data);
         setJobAddedData(jobAddedData.filter((job) => job._id !== id));
@@ -80,6 +80,12 @@ const MyJobPosts = () => {
               </span>
             </div>
             <div className="flex gap-2 items-center justify-start flex-wrap">
+               {/*update  */}
+               <Link to={`/my-jobs/${job?._id}`} state={jobAddedData.find(i=>i._id === job?._id)} className="mt-2">
+                  <button className=" flex items-center gap-2 px-4 py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600">
+                   Review Applications <FaExternalLinkAlt className="mr-2" />
+                  </button>
+                </Link>
               {/* jobDetails */}
                 <Link to={`/jobs/details/${job?._id}`} className="mt-2">
                   <button className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600">

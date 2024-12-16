@@ -4,8 +4,8 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { PiCurrencyInr } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 
-const JobCard = ({ job , JobData}) => {
-  const {_id,companyName,companyImage,jobName, location  , jobType , skills , salaryRange}  = job || JobData || {}
+const JobCard = ({ job , JobData, cateJobs,filteredJobs}) => {
+  const {_id,companyName,companyImage,jobName, location  , jobType , skills , salaryRange}  = job || JobData || cateJobs || filteredJobs || {}
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-md">
       <div className="p-4">

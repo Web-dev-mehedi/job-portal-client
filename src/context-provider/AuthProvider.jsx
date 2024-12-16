@@ -32,7 +32,7 @@ const loginUserByEmailPass = (userInfo)=>{
     queryKey: ["users"],
     queryFn: async () => {
       //
-      const res = await fetch("http://localhost:5000/users");
+      const res = await fetch("https://job-portal-server-zeta.vercel.app/users");
       return res.json();
     },
   });

@@ -45,7 +45,7 @@ const JobDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/jobs/details/${id}`);
+        const res = await fetch(`https://job-portal-server-zeta.vercel.app/jobs/details/${id}`);
         const result = await res.json();
         setDetails(result);
       } catch (err) {

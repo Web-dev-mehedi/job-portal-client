@@ -1,19 +1,22 @@
 import React from "react";
 import CategoryCard from "./CategoryCard";
+import UseForJobs from "./Hooks/UseForJobs";
+
 
 const CategorySection = () => {
+  const { JobsData } = UseForJobs();
   const categories = [
-    { name: "Accounting/Finance", count: 305 },
-    { name: "Health & Fitness", count: 4 },
-    { name: "Data Entry/Operator", count: 25 },
-    { name: "Production/Operation", count: 95 },
-    { name: "Research/Consultancy", count: 34 },
-    { name: "Education/Training", count: 212 },
-    { name: "Engineer/Architects", count: 376 },
-    { name: "Marketing/Sales", count: 666 },
-    { name: "Design/Creative", count: 93 },
-    { name: "Telecommunication", count: 450 },
-    { name: "Security/Support Service", count: 62 },
+    { name: "Accounting/Finance", count: JobsData?.filter((job) => job.jobCategory === "Accounting-Finance").length },
+    { name: "Health & Fitness", count: JobsData?.filter((job) => job.jobCategory === "Health-&-Fitness").length },
+    { name: "Data Entry/Operator", count: JobsData?.filter((job) => job.jobCategory === "Data-Entry-Operator").length },
+    { name: "Production/Operation", count: JobsData?.filter((job) => job.jobCategory === "Production-Operation").length  },
+    { name: "Research/Consultancy", count: JobsData?.filter((job) => job.jobCategory === "Research-Consultancy").length},
+    { name: "Education/Training", count: JobsData?.filter((job) => job.jobCategory === "Education-Training").length },
+    { name: "Engineer/Architects", count: JobsData?.filter((job) => job.jobCategory === "Engineer-Architects").length },
+    { name: "Marketing/Sales", count:JobsData?.filter((job) => job.jobCategory === "Marketing-Sales").length },
+    { name: "Design/Creative", count: JobsData?.filter((job) => job.jobCategory === "Design-Creative").length },
+    { name: "Telecommunication", count: JobsData?.filter((job) => job.jobCategory === "Telecommunication").length },
+    { name: "Security/Support Service", count: JobsData?.filter((job) => job.jobCategory === "Security-Support-Service").length },
   ];
 
   return (

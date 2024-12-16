@@ -123,7 +123,7 @@ const UpdateJob = () => {
   // update
   const handleUpdate = (e) => {
     e.preventDefault();
-    axios.patch(`http://localhost:5000/jobs/update/${id}`, formData)
+    axios.patch(`https://job-portal-server-zeta.vercel.app/jobs/update/${id}`, formData)
       .then((data) => {
         alert("item update");
       })
@@ -458,7 +458,7 @@ const UpdateJob = () => {
             type="submit"
             className="px-6 py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition"
           >
-            Submit Job
+            Update Job
           </button>
         </div>
       </form>

@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import UseAuth from "../../../components/Hooks/UseAuth";
+import UseForJobs from "../../../components/Hooks/UseForJobs";
 
 const AddJob = () => {
   const { user } = UseAuth();
+  const { setRefresh } = UseForJobs();
+
   // from data
   const [formData, setFormData] = useState({
     userEmail: user?.email || "",
@@ -98,16 +101,17 @@ const AddJob = () => {
     e.preventDefault();
     console.log("Job Details Submitted:", formData);
     // Add logic to save data to a database or API
-    axios.post("http://localhost:5000/add-jobs", formData)
+    axios.post("https://job-portal-server-zeta.vercel.app/add-jobs", formData)
       .then((data) => {
         console.log(data.data);
         alert("data added");
+        setRefresh(true)
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
-
+console.log(formData)
   return (
     <div className="max-w-4xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
@@ -152,15 +156,17 @@ const AddJob = () => {
           <label htmlFor="location" className="text-gray-700 font-medium">
             Location
           </label>
-          <input
-            type="text"
-            name="location"
-            placeholder="Enter location"
-            value={formData.location}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          />
+          <select
+              name="location"
+              onChange={handleChange}
+              value={formData?.location}
+              className="select select-bordered w-full"
+            >
+              <option value="">Choose City</option>
+              <option value="Texas">Texas</option>
+              <option value="California">California</option>
+              <option value="New-York">New York</option>
+            </select>
         </div>
         {/* Phone */}
         <div className="flex flex-col">
@@ -269,17 +275,17 @@ const AddJob = () => {
             required
           >
             <option value="">Select a category</option>
-            <option value="Accounting/Finance">Accounting/Finance</option>
-            <option value="Production/Operation">Production/Operation</option>
-            <option value="Education/Training">Education/Training</option>
-            <option value="Design/Creative">Design/Creative</option>
-            <option value="Health & Fitness">Health & Fitness</option>
-            <option value="Research/Consultancy">Research/Consultancy</option>
-            <option value="Engineer/Architects">Engineer/Architects</option>
+            <option value="Accounting-Finance">Accounting/Finance</option>
+            <option value="Production-Operation">Production/Operation</option>
+            <option value="Education-Training">Education/Training</option>
+            <option value="Design-Creative">Design/Creative</option>
+            <option value="Health-&-Fitness">Health & Fitness</option>
+            <option value="Research-Consultancy">Research/Consultancy</option>
+            <option value="Engineer-Architects">Engineer/Architects</option>
             <option value="Telecommunication">Telecommunication</option>
-            <option value="Data Entry/Operator">Data Entry/Operator</option>
-            <option value="Marketing/Sales">Marketing/Sales</option>
-            <option value="Security/Support Service">
+            <option value="Data-Entry-Operator">Data Entry/Operator</option>
+            <option value="Marketing-Sales">Marketing/Sales</option>
+            <option value="Security-Support-Service">
               Security/Support Service
             </option>
           </select>

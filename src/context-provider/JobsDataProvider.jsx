@@ -1,35 +1,31 @@
-import { useQuery } from "@tanstack/react-query";
+
 import React, { createContext, useEffect, useState } from "react";
 
 //
 export const JobsContext = createContext(null);
 const JobsDataProvider = ({ children }) => {
   const [JobsData, setJobsData] = useState([]);
+  const [loader,setLoader] = useState(true)
   // 
   const [jobAddedData,setJobAddedData]= useState([]);
-  const [refresh , setRefresh] = useState(false)
-  //
-  const { data } = useQuery({
-    queryKey: ["all-Job"],
-    queryFn: async () => {
-      //
-      const res = await fetch("http://localhost:5000/jobs");
-      return res.json();
-    },
-  });
+  const [refresh , setRefresh] = useState(false);
   //
   useEffect(() => {
-  
-  // 
-    setJobsData(data);
-  }, [data]);
+      fetch("https://job-portal-server-zeta.vercel.app/jobs")
+      .then(res=> res.json())
+      .then(data=> setJobsData(data))
 
+  }, [refresh]);
+  console.log(import.meta.env.VITE_API_LINK)
   // transporter
   const JobsInfo = {
     JobsData,
     setJobsData,
     jobAddedData,
-    setJobAddedData
+    setJobAddedData,
+    setRefresh,
+    loader,
+    setLoader
   };
 
   return (

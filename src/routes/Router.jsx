@@ -16,6 +16,8 @@ import UpdateJob from "../pages/PrivetRoute/employre/UpdateJob";
 import PrivetRoute2 from "../pages/PrivetRoute/PrivetRoute2";
 import PrivetRoute1 from "../pages/PrivetRoute/PrivetRoute1";
 import NotFound from "../pages/NotFound";
+import CategoriesJobs from "../pages/PrivetRoute/CategoriesJobs";
+import SearchJobs from "../pages/PrivetRoute/SearchJobs";
 
 const Router = () => {
   return (
@@ -25,6 +27,8 @@ const Router = () => {
            {/*privet route for login user */}
            <Route path="/jobs" element={<PrivetRoute><AllJobs/></PrivetRoute>} />
            <Route path="/jobs/details/:id" element={<PrivetRoute><JobDetails/></PrivetRoute>} />
+           <Route path="/jobs/:cate" element={<PrivetRoute><CategoriesJobs/></PrivetRoute>} />
+           <Route path="/search/jobs" element={<PrivetRoute><SearchJobs/></PrivetRoute>} />
            {/*privet route for Candidate */}
            <Route path="/application/apply/:id" element={<PrivetRoute1><ApplyForAJob/></PrivetRoute1>} />
            <Route path="/application/me" element={<PrivetRoute1><MyApplications/></PrivetRoute1>} />

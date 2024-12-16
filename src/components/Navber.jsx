@@ -22,12 +22,12 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
         <div className="flex items-center">
-          <span className="text-2xl font-bold flex items-center">
-            <span className="text-green-500 mr-2">
+          <span className="text-3xl font-extrabold flex items-center font-mono">
+            <span className="text-green-500 mr-2 ">
               {/* Example Icon */}
               <FiMenu />
             </span>
-            Finate
+            Find Jobs
           </span>
         </div>
 
