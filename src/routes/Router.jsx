@@ -18,6 +18,8 @@ import PrivetRoute1 from "../pages/PrivetRoute/PrivetRoute1";
 import NotFound from "../pages/NotFound";
 import CategoriesJobs from "../pages/PrivetRoute/CategoriesJobs";
 import SearchJobs from "../pages/PrivetRoute/SearchJobs";
+import Blog from "../pages/Blog";
+import Contact from "../pages/PrivetRoute/employre/Contact";
 
 const Router = () => {
   return (
@@ -29,6 +31,8 @@ const Router = () => {
            <Route path="/jobs/details/:id" element={<PrivetRoute><JobDetails/></PrivetRoute>} />
            <Route path="/jobs/:cate" element={<PrivetRoute><CategoriesJobs/></PrivetRoute>} />
            <Route path="/search/jobs" element={<PrivetRoute><SearchJobs/></PrivetRoute>} />
+           <Route path="/contact" element={<PrivetRoute><Contact/></PrivetRoute>} />
+
            {/*privet route for Candidate */}
            <Route path="/application/apply/:id" element={<PrivetRoute1><ApplyForAJob/></PrivetRoute1>} />
            <Route path="/application/me" element={<PrivetRoute1><MyApplications/></PrivetRoute1>} />
@@ -38,6 +42,7 @@ const Router = () => {
            <Route path="/my-jobs/:id" element={<PrivetRoute2><ReviewApplications/></PrivetRoute2>} />
            <Route path="/jobs/update/:id" element={<PrivetRoute2><UpdateJob/></PrivetRoute2>} />
            {/* auth */}
+           <Route path="/blogs" element={<Blog/>} />
            <Route path="/login" element={<SignInForm/>} />
            <Route path="/register" element={<RegisterForm/>} />
            {/* 404 pages */}

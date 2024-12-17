@@ -62,7 +62,7 @@ const AddJob = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData((prev) => ({ ...prev, jobImage: file }));
-    console.log("Selected File:", file);
+  
   };
 
   //

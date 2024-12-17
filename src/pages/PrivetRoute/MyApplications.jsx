@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import UseAxiosSecure from "../../components/Hooks/UseAxiosSecure";
+
 
 
 //
@@ -17,6 +19,8 @@ const MyApplications = () => {
   const { user } = UseAuth();
   //
   const { JobsData } = UseForJobs();
+  // 
+  const axiosSecure = UseAxiosSecure()
   //
   const [appliedIds, setappliedIds] = useState("");
   //
@@ -27,28 +31,55 @@ const MyApplications = () => {
   const [refresh, setRefresh] = useState(false);
   //
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          `https://job-portal-server-zeta.vercel.app/applications/${user?.email}`
-        );
-        const application = await res.json();
-        const appliedIds = application.map((i) => i.job_id);
-        setappliedIds(appliedIds.join(","));
-        //
-        setMyapplications(application.map((i) => i));
-        //
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-    // call the func
-    fetchData();
+
+    // const fetchData = async () => {
+    //   try {
+    //     const res = await fetch(
+    //       `https://job-portal-server-zeta.vercel.app/applications/${user?.email}`
+    //     );
+    //     const application = await res.json();
+    //     const appliedIds = application.map((i) => i.job_id);
+    //     setappliedIds(appliedIds.join(","));
+    //     //
+    //     setMyapplications(application.map((i) => i));
+    //     //
+    //   } catch (err) {
+    //     console.log(err.message);
+    //   }
+    // };
+    // // call the func
+    // fetchData();
+
+
+    // 2nd methood
+
+// axios.get(`http://localhost:5000/applications/${user?.email}`,{
+//   withCredentials:true,
+// })
+// .then(res=>{
+//   console.log(res.data);
+//   const appliedIds = res?.data?.map((i) => i.job_id);
+//       setappliedIds(appliedIds.join(","));
+//       //
+//       setMyapplications(res?.data?.map((i) => i));
+// } )
+
+//3rd methood using custom hooks for secure api url
+axiosSecure.get(`/applications/${user?.email}`)
+.then(res=>{
+  const appliedIds = res?.data?.map((i) => i.job_id);
+      setappliedIds(appliedIds.join(","));
+      //
+      setMyapplications(res?.data?.map((i) => i));
+} )
+
+
 
     //  fetch applicant data by ids
     fetch(`https://job-portal-server-zeta.vercel.app/applications/me?ids=${appliedIds}`)
       .then((res) => res.json())
       .then((data) => setMyApplydJob(data));
+
   }, [user?.email, JobsData, appliedIds, refresh]);
 
   // for delete

@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import UseAuth from "./Hooks/UseAuth";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase-init";
+// 
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, setLoader, userFromDb } = UseAuth();
+  const { user, setLoader, userFromDb,signOutUser } = UseAuth();
 
   //
   const handleSignOut = () => {
     //
-    signOut(auth);
+    signOutUser();
     alert("signOut");
     setLoader(false);
   };
@@ -104,7 +103,7 @@ const Navbar = () => {
 
             <li>
               <NavLink
-                to="/blog"
+                to="/blogs"
                 className="block px-4 py-2 md:p-0 hover:text-green-500"
                 onClick={() => setMenuOpen(false)}
               >

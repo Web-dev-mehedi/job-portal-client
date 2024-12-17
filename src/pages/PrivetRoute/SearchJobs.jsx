@@ -7,7 +7,8 @@ const SearchJobs = () => {
   const { state } = useLocation();
 
   return (
-    <>
+       <>
+        { state.data.length > 0 ? <>
      {state?.data ?
          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-11/12 mx-auto gap-4">
          {state?.data?.map((job) => (
@@ -15,7 +16,10 @@ const SearchJobs = () => {
          ))}
        </div>:<Loader/>
      }
-    </>
+    </>:<p className="text-2xl text-red-500 font-mono text-center py-20">No jobs here for this category</p>
+
+        }
+       </>
   );
 };
 

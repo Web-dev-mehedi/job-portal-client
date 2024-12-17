@@ -16,7 +16,7 @@ const JobsDataProvider = ({ children }) => {
       .then(data=> setJobsData(data))
 
   }, [refresh]);
-  console.log(import.meta.env.VITE_API_LINK)
+
   // transporter
   const JobsInfo = {
     JobsData,

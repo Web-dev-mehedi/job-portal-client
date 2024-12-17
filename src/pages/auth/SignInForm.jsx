@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UseAuth from "../../components/Hooks/UseAuth";
+import axios from "axios"
 
 const SignInForm = () => {
   //
@@ -13,11 +14,11 @@ const SignInForm = () => {
     const userEmail = e.target.userEmail.value;
     const userPass = e.target.userPass.value;
     const userInfo = { userEmail, userPass };
-    console.log(userInfo);
     //
     loginUserByEmailPass(userInfo)
       .then((result) => {
-        console.log(result);
+        // 
+  
         alert("account-login");
         navigate("/application/me");
       })
